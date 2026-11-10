@@ -7,6 +7,12 @@
   // Ambient network diagram used behind the terminal.
   const canvas = document.getElementById("reseau");
   const ctx = canvas && canvas.getContext("2d");
+  const hero = canvas && canvas.closest(".hero");
+  const cursor = document.getElementById("curseur-perso");
+  const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const pointer = { x: -1000, y: -1000, active: false };
+  if (cursor && finePointer) document.body.classList.add("curseur-actif");
   let points = [];
   let frame = 0;
   function resizeNetwork() {
@@ -32,10 +38,30 @@
     ctx.clearRect(0, 0, width, height);
     for (let i = 0; i < points.length; i++) {
       const a = points[i];
-      a.x += a.vx;
-      a.y += a.vy;
+      if (!reducedMotion) {
+        a.x += a.vx;
+        a.y += a.vy;
+      }
       if (a.x < 0 || a.x > width) a.vx *= -1;
       if (a.y < 0 || a.y > height) a.vy *= -1;
+      if (pointer.active) {
+        const px = a.x - pointer.x;
+        const py = a.y - pointer.y;
+        const pointerDistance = Math.sqrt(px * px + py * py);
+        if (pointerDistance < 150) {
+          const influence = 1 - pointerDistance / 150;
+          if (pointerDistance > 0) {
+            a.vx += (px / pointerDistance) * influence * 0.01;
+            a.vy += (py / pointerDistance) * influence * 0.01;
+          }
+          ctx.strokeStyle = "rgba(61,220,132," + (0.38 * influence) + ")";
+          ctx.lineWidth = 1.2;
+          ctx.beginPath();
+          ctx.moveTo(pointer.x, pointer.y);
+          ctx.lineTo(a.x, a.y);
+          ctx.stroke();
+        }
+      }
       for (let j = i + 1; j < points.length; j++) {
         const b = points[j];
         const dx = a.x - b.x;
@@ -57,7 +83,7 @@
       ctx.globalAlpha = 1;
     }
     frame++;
-    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    if (!reducedMotion) {
       window.requestAnimationFrame(drawNetwork);
     }
   }
@@ -65,6 +91,34 @@
     resizeNetwork();
     drawNetwork();
     window.addEventListener("resize", resizeNetwork, { passive: true });
+  }
+  if (hero) {
+    hero.addEventListener("pointermove", (event) => {
+      if (event.pointerType === "touch") return;
+      const box = canvas.getBoundingClientRect();
+      pointer.x = event.clientX - box.left;
+      pointer.y = event.clientY - box.top;
+      pointer.active = true;
+      if (reducedMotion) drawNetwork();
+    }, { passive: true });
+    hero.addEventListener("pointerleave", () => { pointer.active = false; }, { passive: true });
+  }
+  if (cursor && finePointer) {
+    document.addEventListener("pointermove", (event) => {
+      if (event.pointerType === "touch") return;
+      cursor.style.left = event.clientX + "px";
+      cursor.style.top = event.clientY + "px";
+      cursor.classList.add("visible");
+    }, { passive: true });
+    document.addEventListener("pointerover", (event) => {
+      if (event.target.closest("a, button, input, [role='button']")) cursor.classList.add("survol");
+    }, { passive: true });
+    document.addEventListener("pointerout", (event) => {
+      const fromControl = event.target.closest("a, button, input, [role='button']");
+      const toControl = event.relatedTarget instanceof Element && event.relatedTarget.closest("a, button, input, [role='button']");
+      if (fromControl && !toControl) cursor.classList.remove("survol");
+    }, { passive: true });
+    window.addEventListener("blur", () => cursor.classList.remove("visible", "survol"));
   }
 
   // Reveal sections as they enter the viewport and keep the navigation in sync.
@@ -154,7 +208,7 @@
     input.value = "";
 
     if (verb === "help") {
-      response("Commandes disponibles :\n  whoami         qui je suis\n  formation      mon parcours\n  competences    état des compétences du référentiel\n  outils         mes compétences techniques\n  realisations   mes réalisations\n  stage          ma recherche de stage\n  veille         ma méthode de veille\n  contact        me joindre\n  cv             ouvrir mon CV\n  ipconfig       configuration réseau\n  ping  [hôte]   tester une connexion\n  ls  /  cd  [section]  naviguer dans la page\n  clear          effacer l'écran");
+      response("Commandes disponibles :\n  <span class=\"commande-aide\">whoami</span>         qui je suis\n  <span class=\"commande-aide\">formation</span>      mon parcours\n  <span class=\"commande-aide\">competences</span>    état des compétences du référentiel\n  <span class=\"commande-aide\">outils</span>         mes compétences techniques\n  <span class=\"commande-aide\">realisations</span>   mes réalisations\n  <span class=\"commande-aide\">stage</span>          ma recherche de stage\n  <span class=\"commande-aide\">veille</span>         ma méthode de veille\n  <span class=\"commande-aide\">contact</span>       me joindre\n  <span class=\"commande-aide\">cv</span>             ouvrir mon CV\n  <span class=\"commande-aide\">ipconfig</span>       configuration réseau\n  <span class=\"commande-aide\">ping</span>  [hôte]   tester une connexion\n  <span class=\"commande-aide\">ls</span> / <span class=\"commande-aide\">cd</span> [section]  naviguer dans la page\n  <span class=\"commande-aide\">clear</span>          effacer l'écran");
     } else if (verb === "whoami") {
       response("<b>Ahmed Bouziani</b>\nÉtudiant en BTS SIO, option SISR, au CNED.\nJe recherche un stage de 4 à 5 semaines en systèmes et réseaux.");
     } else if (verb === "formation") {
