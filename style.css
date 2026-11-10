@@ -359,3 +359,43 @@ body.curseur-actif #curseur-perso { display: block; }
 #curseur-perso.survol .anneau { transform: scale(1.3); border-color: var(--vert); }
 body.curseur-actif, body.curseur-actif * { cursor: none !important; }
 @media (prefers-reduced-motion: reduce) { #curseur-perso, #curseur-perso .anneau { transition: none; } }
+
+
+
+/* Curseur discret avec une lueur verte qui suit le pointeur */
+#curseur-perso { width: 32px; height: 32px; }
+#curseur-perso::before { content: ""; position: absolute; inset: -9px; border-radius: 50%; background: radial-gradient(circle, rgba(61, 220, 132, .23) 0, rgba(61, 220, 132, .12) 38%, transparent 72%); filter: blur(4px); transition: transform .18s ease, opacity .18s ease; }
+#curseur-perso .anneau { border-color: rgba(61, 220, 132, .7); box-shadow: 0 0 10px rgba(61, 220, 132, .22); }
+#curseur-perso .point { box-shadow: 0 0 8px var(--vert), 0 0 18px rgba(61, 220, 132, .7); }
+#curseur-perso.survol::before { transform: scale(1.2); }
+
+/* Collections de veille */
+.veille-compteur { display: flex; align-items: center; gap: 9px; margin: 20px 0 12px; color: var(--doux); font: .78rem var(--mono); text-transform: uppercase; letter-spacing: .06em; }
+.veille-compteur .led { width: 7px; height: 7px; }
+.veille-compteur .separateur { color: var(--bord); }
+.veille-grille { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin: 16px 0 38px; }
+.veille-carte { position: relative; display: flex; flex-direction: column; min-height: 230px; padding: 20px; overflow: hidden; background: linear-gradient(145deg, rgba(16, 27, 45, .96), rgba(9, 17, 29, .98)); border: 1px solid var(--bord); border-radius: 10px; color: var(--texte); text-decoration: none; transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease; }
+.veille-carte::before { content: ""; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(circle at 100% 0, rgba(61, 220, 132, .1), transparent 48%); opacity: .55; transition: opacity .25s ease; }
+.veille-carte:hover, .veille-carte:focus-visible { transform: translateY(-4px); border-color: rgba(61, 220, 132, .55); box-shadow: 0 12px 34px rgba(0, 0, 0, .3), 0 0 26px rgba(61, 220, 132, .08); text-decoration: none; }
+.veille-carte:hover::before, .veille-carte:focus-visible::before { opacity: 1; }
+.veille-carte:focus-visible { outline: 2px solid var(--vert); outline-offset: 3px; }
+.veille-categorie { position: relative; display: flex; align-items: center; gap: 9px; color: var(--vert); font: .7rem var(--mono); letter-spacing: .055em; text-transform: uppercase; }
+.veille-index { display: inline-grid; width: 25px; height: 25px; place-items: center; border: 1px solid rgba(61, 220, 132, .28); border-radius: 6px; background: rgba(61, 220, 132, .08); }
+.veille-carte h3 { position: relative; margin: 20px 0 8px; color: #fff; font-size: 1.12rem; line-height: 1.35; }
+.veille-carte p { position: relative; margin: 0 0 22px; color: var(--doux); font-size: .9rem; line-height: 1.55; }
+.veille-ouvrir { position: relative; display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: auto; padding-top: 12px; border-top: 1px solid rgba(135, 150, 173, .15); color: var(--cyan); font: .76rem var(--mono); }
+.veille-ouvrir span { color: var(--vert); font-size: 1rem; }
+.veille-methode { margin-top: 6px; }
+.veille-methode-titre { display: flex; align-items: center; gap: 10px; margin: 0 0 8px; color: var(--texte); font-size: 1rem; }
+.veille-methode-titre .led { width: 7px; height: 7px; }
+@media (max-width: 900px) {
+  .veille-grille { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 520px) {
+  .veille-grille { grid-template-columns: 1fr; }
+  .veille-carte { min-height: 200px; }
+  .veille-compteur { flex-wrap: wrap; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #curseur-perso::before { transition: none; }
+}
