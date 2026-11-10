@@ -346,3 +346,16 @@ footer .led { margin-right: 6px; }
 .cecrl { display: grid; grid-template-columns: repeat(6, 1fr); gap: 4px; }
 .cecrl span { font-family: var(--mono); font-size: .68rem; text-align: center; padding: 3px 0; border-radius: 4px; background: rgba(135, 150, 173, .12); color: var(--doux, #8796ad); }
 .cecrl span.on { background: rgba(61, 220, 132, .2); color: var(--vert); box-shadow: inset 0 0 0 1px rgba(61, 220, 132, .45); }
+
+.reponse pre .commande-aide { color: var(--vert); font-weight: 600; }
+#reseau { pointer-events: none; }
+
+/* Curseur discret, assorti au thème */
+#curseur-perso { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 28px; height: 28px; pointer-events: none; transform: translate(-50%, -50%); opacity: 0; transition: opacity .16s ease; }
+body.curseur-actif #curseur-perso { display: block; }
+#curseur-perso.visible { opacity: 1; }
+#curseur-perso .anneau { position: absolute; inset: 2px; border: 1px solid rgba(34, 211, 238, .8); border-radius: 50%; box-shadow: 0 0 10px rgba(34, 211, 238, .18); transition: transform .16s ease, border-color .16s ease; }
+#curseur-perso .point { position: absolute; left: 50%; top: 50%; width: 4px; height: 4px; border-radius: 50%; background: var(--vert); transform: translate(-50%, -50%); box-shadow: 0 0 7px var(--vert); }
+#curseur-perso.survol .anneau { transform: scale(1.3); border-color: var(--vert); }
+body.curseur-actif, body.curseur-actif * { cursor: none !important; }
+@media (prefers-reduced-motion: reduce) { #curseur-perso, #curseur-perso .anneau { transition: none; } }
