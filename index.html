@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ahmed Bouziani – Portfolio BTS SIO SISR</title>
+  <meta name="description" content="Portfolio d'Ahmed Bouziani, étudiant en BTS Services informatiques aux organisations, option Solutions d'infrastructure, systèmes et réseaux (SISR).">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23070d17'/%3E%3Ctext x='5' y='22' font-family='monospace' font-size='16' font-weight='700' fill='%233ddc84'%3E%3E_%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="nav">
+  <a class="logo" href="#accueil"><span class="led vert"></span>ahmed@sio</a>
+  <nav aria-label="Navigation principale">
+    <a href="#profil">profil</a><a href="#parcours">parcours</a><a href="#competences">compétences</a><a href="#realisations">réalisations</a><a href="#stages">stages</a><a href="#veille">veille</a><a href="#contact">contact</a>
+  </nav>
+</header>
+
+<section id="accueil" class="hero">
+  <canvas id="reseau" aria-hidden="true"></canvas>
+  <div class="hero-contenu">
+    <div class="hero-gauche">
+      <div class="terminal">
+        <div class="barre"><span></span><span></span><span></span><p>ahmed@sio: ~</p></div>
+        <div class="ecran" id="terminal-ecran" tabindex="0" aria-label="Terminal interactif">
+          <p class="ligne"><span class="prompt">ahmed@sio:~$</span> <span class="tape" data-texte="whoami">whoami</span></p>
+          <h1>Ahmed Bouziani</h1>
+          <p class="ligne"><span class="prompt">ahmed@sio:~$</span> <span class="tape" data-texte="cat formation.txt">cat formation.txt</span></p>
+          <p class="sortie">BTS Services informatiques aux organisations<br>option Solutions d'infrastructure, systèmes et réseaux (SISR) – CNED</p>
+          <p class="ligne"><span class="prompt">ahmed@sio:~$</span> <span class="tape" data-texte="ping objectif">ping objectif</span></p>
+          <p class="sortie"><span class="ok">64 bytes from</span> <strong>administrateur systèmes et réseaux</strong> : statut = en route</p>
+          <form class="saisie" id="terminal-form"><label class="prompt" for="cmd-entree">ahmed@sio:~$</label><input id="cmd-entree" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Commande" placeholder="tape help"></form>
+        </div>
+      </div>
+      <p class="astuce visible">Ce terminal est interactif : clique dedans et tape <code>help</code>.</p>
+      <p class="accroche">Je recherche un <strong>stage de 4 à 5 semaines</strong> en systèmes et réseaux, entre mai et août.</p>
+      <div class="boutons"><a class="btn" href="#realisations">Voir mes réalisations</a><a class="btn secondaire" href="#contact">Me contacter</a></div>
+    </div>
+    <figure class="topologie" aria-label="Schéma d'un petit réseau d'entreprise : Internet, un routeur pare-feu, un switch, un serveur Active Directory, un serveur web, un serveur GLPI et des postes clients">
+      <svg viewBox="0 0 420 470" role="img" aria-labelledby="topologie-titre">
+        <title id="topologie-titre">Topologie de mon labo</title>
+        <defs><path id="l-inet" d="M210 92 L210 142"></path><path id="l-sw" d="M210 196 L210 246"></path><path id="l-ad" d="M210 290 L60 360"></path><path id="l-web" d="M210 290 L160 360"></path><path id="l-glpi" d="M210 290 L260 360"></path><path id="l-pc" d="M210 290 L360 360"></path></defs>
+        <g class="liens"><use href="#l-inet"></use><use href="#l-sw"></use><use href="#l-ad"></use><use href="#l-web"></use><use href="#l-glpi"></use><use href="#l-pc"></use></g>
+        <g class="equipement"><path class="nuage" d="M150 78 a26 26 0 0 1 10-46 a34 34 0 0 1 62-12 a26 26 0 0 1 46 16 a22 22 0 0 1 2 42 z"></path><text x="210" y="62" class="etiquette-topo">Internet</text></g>
+        <g class="equipement"><rect x="150" y="142" width="120" height="54" rx="8"></rect><circle cx="168" cy="160" r="3.5" class="led-topo activite"></circle><text x="216" y="166" class="nom-topo">R1</text><text x="216" y="184" class="ip-topo">routeur · pare-feu</text></g>
+        <g class="equipement"><rect x="130" y="246" width="160" height="44" rx="6"></rect><g class="mini-ports"><rect x="146" y="258" width="12" height="9"></rect><rect x="164" y="258" width="12" height="9"></rect><rect x="182" y="258" width="12" height="9"></rect><rect x="200" y="258" width="12" height="9"></rect><rect x="218" y="258" width="12" height="9"></rect><rect x="236" y="258" width="12" height="9"></rect></g><text x="210" y="282" class="ip-topo">SW1 · VLAN 10</text></g>
+        <g class="equipement"><rect x="22" y="360" width="76" height="62" rx="6"></rect><line x1="32" y1="376" x2="88" y2="376"></line><line x1="32" y1="388" x2="88" y2="388"></line><circle cx="82" cy="398" r="2.6" class="activite"></circle><text x="60" y="410" class="nom-topo">SRV-AD</text><text x="60" y="440" class="ip-topo">.10.10</text></g>
+        <g class="equipement"><rect x="122" y="360" width="76" height="62" rx="6"></rect><line x1="132" y1="376" x2="188" y2="376"></line><line x1="132" y1="388" x2="188" y2="388"></line><circle cx="182" cy="398" r="2.6" class="activite"></circle><text x="160" y="410" class="nom-topo">SRV-WEB</text><text x="160" y="440" class="ip-topo">.10.20</text></g>
+        <g class="equipement"><rect x="222" y="360" width="76" height="62" rx="6"></rect><line x1="232" y1="376" x2="288" y2="376"></line><line x1="232" y1="388" x2="288" y2="388"></line><circle cx="282" cy="398" r="2.6" class="activite"></circle><text x="260" y="410" class="nom-topo">GLPI</text><text x="260" y="440" class="ip-topo">.10.30</text></g>
+        <g class="equipement"><rect x="324" y="360" width="72" height="46" rx="5"></rect><rect x="346" y="406" width="28" height="8" rx="2"></rect><circle cx="386" cy="370" r="2.6" class="activite"></circle><text x="360" y="388" class="nom-topo">PC</text><text x="360" y="440" class="ip-topo">DHCP</text></g>
+        <text x="210" y="464" class="legende-topo">192.168.10.0/24</text>
+        <g class="paquets"><circle r="4"><animateMotion dur="2.4s" repeatCount="indefinite"><mpath href="#l-inet"></mpath></animateMotion></circle><circle r="4"><animateMotion dur="2s" begin="-0.6s" repeatCount="indefinite"><mpath href="#l-sw"></mpath></animateMotion></circle><circle r="4"><animateMotion dur="2.6s" begin="-0.3s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear"><mpath href="#l-ad"></mpath></animateMotion></circle><circle r="4"><animateMotion dur="2.2s" begin="-1.1s" repeatCount="indefinite"><mpath href="#l-web"></mpath></animateMotion></circle><circle r="4" class="cyan"><animateMotion dur="2.8s" begin="-0.8s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear"><mpath href="#l-glpi"></mpath></animateMotion></circle><circle r="4" class="cyan"><animateMotion dur="2.4s" begin="-1.6s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear"><mpath href="#l-pc"></mpath></animateMotion></circle></g>
+      </svg>
+      <figcaption>Le type d'infrastructure que j'apprends à installer et à administrer.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<main>
+<dl class="infos cascade"><div><dt>formation</dt><dd>BTS SIO SISR · 1<sup>re</sup> année</dd></div><div><dt>disponibilité</dt><dd>stage 4 à 5 semaines · mai à août</dd></div><div><dt>localisation</dt><dd>Roubaix (59)</dd></div><div><dt>mobilité</dt><dd>permis B · véhicule personnel</dd></div></dl>
+
+<section id="profil" class="apparait">
+  <p class="cmd" data-texte="Switch# show profil">Switch# show profil</p><h2>Profil</h2>
+  <div class="deux-colonnes"><div>
+    <p>Je suis en première année de BTS SIO option SISR au CNED. Je me forme à l'installation, à la configuration et à la sécurisation des infrastructures informatiques : serveurs, réseaux, postes de travail et services aux utilisateurs.</p>
+    <p>Ce qui m'attire dans l'administration systèmes et réseaux, c'est de participer concrètement à l'amélioration d'une organisation : proposer des évolutions, protéger les données et résoudre des problèmes variés au quotidien.</p>
+    <p>La cybersécurité m'intéresse particulièrement, car c'est un domaine qui évolue sans cesse et qui demande une vraie rigueur.</p>
+  </div><div class="panneau"><h3>Mon projet professionnel</h3><dl class="config"><dt>métier visé</dt><dd>administrateur systèmes et réseaux</dd><dt>après le BTS</dt><dd>licence pro « Administration et sécurité des systèmes et des réseaux », de préférence en alternance</dd></dl><p><a href="metier-administrateur-systemes-reseaux.pdf">→ Fiche métier et carte heuristique (PDF)</a></p></div></div>
+</section>
+
+<section id="parcours" class="apparait">
+  <p class="cmd" data-texte="$ traceroute administrateur-systemes-reseaux">$ traceroute administrateur-systemes-reseaux</p><h2>Parcours et diplômes</h2>
+  <ol class="traceroute cascade inverse" reversed>
+    <li class="futur" style="--i:5"><span class="saut">6</span><div><h3>Administrateur systèmes et réseaux</h3><p>Objectif professionnel</p></div><span class="temps">* * *</span></li>
+    <li class="futur" style="--i:4"><span class="saut">5</span><div><h3>Licence pro « Administration et sécurité des systèmes et des réseaux »</h3><p>Poursuite d'études envisagée</p></div><span class="temps">* * *</span></li>
+    <li class="actuel" style="--i:3"><span class="saut">4</span><div><h3>BTS Services informatiques aux organisations – option SISR</h3><p>CNED (formation à distance) – en cours, 1<sup>re</sup> année</p></div><span class="temps">2026 – 2028</span></li>
+    <li style="--i:2"><span class="saut">3</span><div><h3>L1 Mathématiques et Informatique</h3><p>Université de Lille</p></div><span class="temps">2024 – 2025</span></li>
+    <li style="--i:1"><span class="saut">2</span><div><h3>L1 MPCSI (Mathématiques, Physique, Chimie, Sciences de l'Ingénieur)</h3><p>Université de Lille</p></div><span class="temps">2024</span></li>
+    <li style="--i:0"><span class="saut">1</span><div><h3>Baccalauréat STI2D</h3><p>Lycée privé Saint-Rémi</p></div><span class="temps">2023</span></li>
+  </ol>
+</section>
+
+<section id="competences" class="apparait">
+  <p class="cmd" data-texte="Switch# show interfaces status">Switch# show interfaces status</p><h2>Compétences du référentiel</h2>
+  <p>Les six compétences du bloc 1 « Support et mise à disposition de services informatiques » (épreuve E4). Un port allumé correspond à une compétence déjà démontrée par une réalisation.</p>
+  <div class="switch"><div class="switch-tete"><span>SIO-SW01</span><span class="led vert"></span><span class="led vert"></span></div>
+    <ul class="ports cascade">
+      <li class="port" style="--i:0"><div class="prise"><span class="led"></span></div><span class="num">C1</span><span class="nom">Gérer le patrimoine informatique</span></li>
+      <li class="port" style="--i:1"><div class="prise"><span class="led"></span></div><span class="num">C2</span><span class="nom">Répondre aux incidents et aux demandes d'assistance et d'évolution</span></li>
+      <li class="port actif" style="--i:2"><div class="prise"><span class="led vert"></span></div><span class="num">C3</span><span class="nom">Développer la présence en ligne de l'organisation</span></li>
+      <li class="port" style="--i:3"><div class="prise"><span class="led"></span></div><span class="num">C4</span><span class="nom">Travailler en mode projet</span></li>
+      <li class="port" style="--i:4"><div class="prise"><span class="led"></span></div><span class="num">C5</span><span class="nom">Mettre à disposition des utilisateurs un service informatique</span></li>
+      <li class="port actif" style="--i:5"><div class="prise"><span class="led vert"></span></div><span class="num">C6</span><span class="nom">Organiser son développement professionnel</span></li>
+    </ul>
+  </div>
+  <h3>Tableau de synthèse</h3><div class="tableau-scroll"><table><thead><tr><th>Réalisation</th><th>C1</th><th>C2</th><th>C3</th><th>C4</th><th>C5</th><th>C6</th></tr></thead><tbody><tr><td>R1 – Construction de mon identité professionnelle</td><td></td><td></td><td>●</td><td></td><td></td><td>●</td></tr></tbody></table></div>
+  <h3 id="outils">Compétences techniques <small>(en cours d'acquisition)</small></h3>
+  <div class="couches cascade">
+    <div class="couche" style="--i:0"><h4>Systèmes</h4><ul class="logos"><li><img src="img/logos/windows11.svg" alt="" width="34" height="34" loading="lazy"><span>Windows 11</span></li><li><img src="img/logos/windows11.svg" alt="" width="34" height="34" loading="lazy"><span>Windows Server</span></li><li><img src="img/logos/active-directory.svg" alt="" width="34" height="34" loading="lazy"><span>Active Directory</span></li><li><img src="img/logos/debian.svg" alt="" width="34" height="34" loading="lazy"><span>Debian</span></li><li><img src="img/logos/ubuntu.svg" alt="" width="34" height="34" loading="lazy"><span>Ubuntu</span></li><li><img src="img/logos/powershell.svg" alt="" width="34" height="34" loading="lazy"><span>PowerShell</span></li></ul></div>
+    <div class="couche" style="--i:1"><h4>Réseaux</h4><ul class="logos"><li><img src="img/logos/cisco.svg" alt="" width="34" height="34" loading="lazy"><span>Cisco IOS</span></li></ul></div>
+    <div class="couche" style="--i:2"><h4>Services</h4><ul class="logos"><li><img src="img/logos/apache.svg" alt="" width="34" height="34" loading="lazy"><span>Apache HTTP Server</span></li><li><img src="img/logos/mariadb.svg" alt="" width="34" height="34" loading="lazy"><span>MariaDB</span></li><li><img src="img/logos/impression.svg" alt="" width="34" height="34" loading="lazy"><span>Services d'impression</span></li><li><img src="img/logos/sauvegarde.svg" alt="" width="34" height="34" loading="lazy"><span>Sauvegarde</span></li></ul></div>
+    <div class="couche" style="--i:3"><h4>Virtualisation</h4><ul class="logos"><li><img src="img/logos/virtualbox.svg" alt="" width="34" height="34" loading="lazy"><span>VirtualBox</span></li></ul></div>
+    <div class="couche" style="--i:4"><h4>Gestion de parc et assistance</h4><ul class="logos"><li><img src="img/logos/glpi.svg" alt="" width="34" height="34" loading="lazy"><span>GLPI</span></li><li><img src="img/logos/ocs-inventory.svg" alt="" width="34" height="34" loading="lazy"><span>OCS Inventory</span></li></ul></div>
+    <div class="couche" style="--i:5"><h4>Web et travail collaboratif</h4><ul class="logos"><li><img src="img/logos/html5.svg" alt="" width="34" height="34" loading="lazy"><span>HTML</span></li><li><img src="img/logos/css3.svg" alt="" width="34" height="34" loading="lazy"><span>CSS</span></li><li><img src="img/logos/javascript.svg" alt="" width="34" height="34" loading="lazy"><span>JavaScript</span></li><li><img src="img/logos/github.svg" alt="" width="34" height="34" loading="lazy"><span>GitHub</span></li></ul></div>
+  </div>
+  <h3>Langues</h3><div class="langues cascade">
+    <div class="langue" style="--i:0"><p><strong>Anglais</strong><span class="niveau">B2 · avancé</span></p><div class="cecrl" aria-hidden="true"><span class="on">A1</span><span class="on">A2</span><span class="on">B1</span><span class="on">B2</span><span>C1</span><span>C2</span></div></div>
+    <div class="langue" style="--i:1"><p><strong>Arabe</strong><span class="niveau">A1 · débutant</span></p><div class="cecrl" aria-hidden="true"><span class="on">A1</span><span>A2</span><span>B1</span><span>B2</span><span>C1</span><span>C2</span></div></div>
+  </div>
+</section>
+
+<section id="realisations" class="apparait">
+  <p class="cmd" data-texte="$ ls ~/realisations">$ ls ~/realisations</p><h2>Réalisations professionnelles</h2>
+  <div class="cartes"><article class="fenetre"><div class="barre"><span></span><span></span><span></span><p>R1-identite-professionnelle.md</p></div><div class="fenetre-contenu">
+    <p class="etiquette">R1 · Formation · Octobre 2026</p><h3>Construction de mon identité professionnelle</h3>
+    <p><strong>Contexte :</strong> module B1.6 du BTS SIO, organiser son développement professionnel.</p><p><strong>Ce que j'ai fait :</strong></p>
+    <ul><li>recherche sur les métiers de l'informatique et choix du métier d'administrateur systèmes et réseaux ;</li><li>réalisation d'une carte heuristique du métier (MindMeister) ;</li><li>création de ce portfolio en ligne et de mon profil LinkedIn ;</li><li>mise en place d'une veille technologique organisée sur Pearltrees.</li></ul>
+    <p class="ports-couverts"><span>C3</span><span>C6</span> Développer la présence en ligne · Organiser son développement professionnel</p><p><a href="metier-administrateur-systemes-reseaux.pdf">→ Document de présentation du métier (PDF)</a></p>
+  </div></article></div>
+</section>
+
+<section id="stages" class="apparait">
+  <p class="cmd" data-texte="Switch# show interface stage0">Switch# show interface stage0</p><h2>Stages</h2>
+  <div class="panneau statut"><span class="led orange clignote"></span><div><h3>stage0 : en recherche de connexion</h3><p>Je recherche un stage de 4 à 5 semaines, entre mai et août, dans le domaine des systèmes et réseaux. Mes missions et réalisations de stage seront présentées ici.</p></div></div>
+</section>
+
+<section id="veille" class="apparait">
+  <p class="cmd" data-texte="$ tail -f veille.log">$ tail -f veille.log</p><h2>Veille technologique</h2>
+  <p>Je suis l'actualité de mon domaine de façon régulière. Chaque information passe par le même circuit avant d'être conservée.</p>
+  <div class="pipeline-zone"><span class="paquet-pipeline" aria-hidden="true"></span><ol class="pipeline cascade">
+    <li style="--i:0"><span class="etape">01</span><h3>Collecter</h3><p>Alertes, flux RSS et sites spécialisés sur mes thèmes.</p></li><li style="--i:1"><span class="etape">02</span><h3>Vérifier</h3><p>Fiabilité de chaque source avec la méthode QQOQCCP.</p></li><li style="--i:2"><span class="etape">03</span><h3>Classer</h3><p>Articles retenus rangés par thème sur Pearltrees.</p></li><li style="--i:3"><span class="etape">04</span><h3>Exploiter</h3><p>Mise en pratique en formation, en stage et dans mon labo.</p></li>
+  </ol></div>
+</section>
+
+<section id="contact" class="apparait">
+  <p class="cmd" data-texte="$ ip addr show contact">$ ip addr show contact</p><h2>Contact</h2>
+  <ul class="contact cascade"><li style="--i:0"><span>mail</span><a href="mailto:rami.bouziani@icloud.com">rami.bouziani@icloud.com</a></li><li style="--i:1"><span>linkedin</span><a href="https://www.linkedin.com/in/ahmed-bouziani-9917a72a2/">linkedin.com/in/ahmed-bouziani-9917a72a2</a></li><li style="--i:2"><span>github</span><a href="https://github.com/Ahmed-boz">github.com/Ahmed-boz</a></li><li style="--i:3"><span>cv</span><a href="cv-ahmed-bouziani.pdf">télécharger mon CV (PDF)</a></li></ul>
+</section>
+</main>
+<footer><p><span class="led vert"></span> © 2026 Ahmed Bouziani – BTS SIO option SISR</p><p><a href="#accueil">↑ retour en haut</a></p></footer>
+<script src="script.js"></script>
+</body>
+</html>
