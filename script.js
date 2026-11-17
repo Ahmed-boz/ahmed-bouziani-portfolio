@@ -163,7 +163,10 @@
       typeText(element, element.dataset.texte, element.classList.contains("cmd") ? 16 : 38);
     });
   }, { threshold: 0.5 });
-  document.querySelectorAll(".cmd[data-texte], .tape[data-texte]").forEach((element) => typeObserver.observe(element));
+  const lancerFrappe = () => document.querySelectorAll(".cmd[data-texte], .tape[data-texte]").forEach((element) => typeObserver.observe(element));
+  // Pendant l'intro 3D, la frappe du terminal attend la fin de la transition.
+  if (root.classList.contains("intro-active")) window.addEventListener("intro:fin", () => setTimeout(lancerFrappe, 350), { once: true });
+  else lancerFrappe();
 
   const form = document.getElementById("terminal-form");
   const input = document.getElementById("cmd-entree");

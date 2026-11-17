@@ -9,9 +9,41 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23070d17'/%3E%3Ctext x='5' y='22' font-family='monospace' font-size='16' font-weight='700' fill='%233ddc84'%3E%3E_%3C/text%3E%3C/svg%3E">
+  <script>
+  (function () {
+    var d = document.documentElement, force = /[?&]intro(=|&|$)/.test(location.search), passer = false;
+    try { passer = !force && (sessionStorage.getItem("intro-vue") || location.hash.length > 1); } catch (e) { passer = true; }
+    if (!force && window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) passer = true;
+    d.classList.add(passer ? "sans-intro" : "intro-active");
+    if (force && history.replaceState) history.replaceState(null, "", location.pathname + location.hash);
+    if (!passer) {
+      var l = document.createElement("link");
+      l.rel = "modulepreload"; l.crossOrigin = "anonymous";
+      l.href = "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.min.js";
+      document.head.appendChild(l);
+    }
+    if (!passer) setTimeout(function () {
+      if (window.__introBoot) return;
+      d.classList.remove("intro-active"); d.classList.add("sans-intro");
+      window.dispatchEvent(new Event("intro:fin"));
+    }, 4000);
+  })();
+  </script>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<div id="intro" aria-label="Introduction : entrée dans le data center">
+  <canvas aria-hidden="true"></canvas>
+  <div class="intro-voile" aria-hidden="true"></div>
+  <div class="intro-hud">
+    <div class="intro-log" aria-live="polite"></div>
+    <div class="intro-bas">
+      <p class="intro-stat">DC-01 · sas d'entrée</p>
+      <div class="intro-progression" aria-hidden="true"><span></span></div>
+      <button type="button" class="intro-passer">Passer l'intro <kbd>Échap</kbd></button>
+    </div>
+  </div>
+</div>
 <div id="curseur-perso" aria-hidden="true"><span class="anneau"></span><span class="point"></span></div>
 <header class="nav">
   <a class="logo" href="#accueil"><span class="led vert"></span>ahmed@sio</a>
@@ -165,7 +197,8 @@
   <ul class="contact cascade"><li style="--i:0"><span>mail</span><a href="mailto:rami.bouziani@icloud.com">rami.bouziani@icloud.com</a></li><li style="--i:1"><span>linkedin</span><a href="https://www.linkedin.com/in/ahmed-bouziani-9917a72a2/">linkedin.com/in/ahmed-bouziani-9917a72a2</a></li><li style="--i:2"><span>github</span><a href="https://github.com/Ahmed-boz">github.com/Ahmed-boz</a></li><li style="--i:3"><span>cv</span><a href="cv-ahmed-bouziani.pdf">télécharger mon CV (PDF)</a></li></ul>
 </section>
 </main>
-<footer><p><span class="led vert"></span> © 2026 Ahmed Bouziani – BTS SIO option SISR</p><p><a href="#accueil">↑ retour en haut</a></p></footer>
+<footer><p><span class="led vert"></span> © 2026 Ahmed Bouziani – BTS SIO option SISR</p><p><a href="./?intro">▶ revoir l'intro</a> · <a href="#accueil">↑ retour en haut</a></p></footer>
 <script src="script.js"></script>
+<script type="module" src="intro.js"></script>
 </body>
 </html>
